@@ -1,0 +1,762 @@
+.ReactTable {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+
+  .rt-table {
+    flex: auto 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: auto
+  }
+
+  .rt-thead {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    border-bottom: 1px solid;
+
+    &.-headerGroups {
+      border-bottom: 0;
+    }
+
+    &.-filters {
+      border-bottom: 1px solid;
+    }
+
+    &.-filters .rt-th {
+      border-right: 1px solid;
+
+      [dir=rtl] & {
+        border-right: 0;
+        border-left: 1px solid;
+      }
+    }
+
+    .rt-tr {
+      text-align: center;
+      border-bottom: 1px solid;
+    }
+
+    .rt-th,
+    .rt-td {
+      position: relative;
+      border-right: 1px solid;
+      transition: box-shadow .3s cubic-bezier(.175, .885, .32, 1.275);
+      box-shadow: inset 0 0 0 0 transparent;
+
+      [dir=rtl] & {
+        border-right: 0;
+        border-left: 1px solid;
+      }
+
+      &.-sort-asc,
+      &.-sort-desc {
+        html:not([dir=rtl]) & {
+          padding-right: 18px;
+        }
+        [dir=rtl] & {
+          padding-left: 18px;
+        }
+      }
+
+      &.-sort-asc::after,
+      &.-sort-desc::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 1px;
+        font-size: 0;
+        line-height: 0;
+        height: 7px;
+        width: 7px;
+        right: 8px;
+        top: 50%;
+        transform: rotate(45deg);
+
+        [dir=rtl] & {
+          right: auto;
+          left: 8px;
+        }
+      }
+
+      &.-sort-desc::after {
+        border-top-color: transparent;
+        border-left-color: transparent;
+        margin-top: -6px;
+      }
+
+      &.-sort-asc::after {
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        margin-top: -1px;
+      }
+
+      &.-cursor-pointer {
+        cursor: pointer
+      }
+
+      &:last-child {
+        html:not([dir=rtl]) & {
+          border-right: 0
+        }
+        [dir=rtl] & {
+          border-left: 0
+        }
+      }
+    }
+
+    .rt-th:focus {
+      outline: 0 !important;
+    }
+
+    .rt-resizable-header {
+      overflow: visible;
+    }
+
+    .rt-resizable-header:last-child {
+      overflow: hidden
+    }
+
+    .rt-resizable-header-content {
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .rt-header-pivot:before {
+      left: 100%;
+      top: 50%;
+      border: 8px solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      margin-top: -8px;
+
+      [dir=rtl] & {
+        left: auto;
+        right: 100%;
+      }
+    }
+  }
+
+  .rt-tbody {
+    flex: 99999 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+
+    .rt-tr-group {
+      border-bottom: solid 1px;
+    }
+
+    .rt-tr-group:last-child {
+      border-bottom: 0
+    }
+
+    .rt-td {
+      border-right: 1px solid;
+
+      [dir=rtl] & {
+        border-right: 0;
+        border-left: 1px solid;
+      }
+    }
+
+    .rt-td:last-child {
+      html:not([dir=rtl]) & {
+        border-right: 0
+      }
+      [dir=rtl] & {
+        border-left: 0;
+      }
+    }
+
+    .rt-expandable {
+      cursor: pointer;
+      text-overflow: clip
+    }
+  }
+
+  .rt-tr-group {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch
+  }
+
+  .rt-tr {
+    flex: 1 0 auto;
+    display: inline-flex
+  }
+
+  .rt-th,
+  .rt-td {
+    flex: 1 0 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: .3s ease;
+    transition-property: width, min-width, padding, opacity;
+
+    &.-hidden {
+      width: 0 !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      opacity: 0 !important
+    }
+  }
+
+  .rt-expander {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    color: transparent;
+    margin: 0 10px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      border-left: 5.04px solid transparent;
+      border-right: 5.04px solid transparent;
+      border-top: 7px solid;
+      transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+      cursor: pointer;
+
+      [dir=rtl] & {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    &.-open:after {
+      transform: translate(-50%, -50%) rotate(0);
+    }
+  }
+
+  .rt-resizer {
+    display: inline-block;
+    position: absolute;
+    width: 36px;
+    top: 0;
+    bottom: 0;
+    right: -18px;
+    cursor: col-resize;
+    z-index: 10;
+
+    [dir=rtl] & {
+      right: auto;
+      left: -18px;
+    }
+  }
+
+  .rt-tfoot {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    .rt-td {
+      border-right: 1px solid;
+
+      [dir=rtl] & {
+        border-right: 0;
+        border-left: 1px solid;
+      }
+    }
+
+    .rt-td:last-child {
+      html:not([dir=rtl]) & {
+        border-right: 0
+      }
+      [dir=rtl] & {
+        border-left: 0;
+      }
+    }
+  }
+
+  .pagination-bottom {
+    border-top: 2px solid;
+  }
+  .pagination-top {
+    border-bottom: 2px solid;
+  }
+
+  .-pagination {
+    z-index: 1;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: 3px;
+    max-width: 600px;
+    margin: 0 auto;
+
+    .-btn {
+      appearance: none;
+      display: block;
+      height: 100%;
+      border: 0;
+      border-radius: 3px;
+      padding: 6px;
+      font-size: 1em;
+      color: inherit;
+      background: transparent;
+      transition: all .1s ease;
+      cursor: pointer;
+      outline: 0 !important;
+      width: 100px;
+    }
+    
+    .-btn[disabled] {
+      opacity: .5;
+      cursor: default
+    }
+
+    .-previous,
+    .-next {
+      flex: 0 0;
+      text-align: center;
+    }
+
+    .-center {
+      flex: 1 1;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .-pageInfo {
+      display: inline-block;
+      margin: 3px 10px;
+      white-space: nowrap
+    }
+
+    .-pageJump {
+      display: inline-block;
+    }
+
+    .-pageJump input {
+      width: 70px;
+      text-align: center
+    }
+
+    .-pageSizeOptions {
+      margin: 3px 10px
+    }
+  }
+
+  .rt-noData {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    transition: all .3s ease;
+    z-index: 1;
+    pointer-events: none;
+    padding: 20px;
+    color: rgba(0, 0, 0, 0.5)
+  }
+
+  .-loading {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all .3s ease;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+
+    > div {
+      position: absolute;
+      display: block;
+      text-align: center;
+      width: 100%;
+      top: 50%;
+      left: 0;
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.6);
+      transform: translateY(-52%);
+      transition: all .3s cubic-bezier(.25, .46, .45, .94)
+    }
+
+    &.-active {
+      opacity: 1;
+      z-index: 2;
+      pointer-events: all;
+
+      > div {
+        transform: translateY(50%)
+      }
+    }
+  }
+
+  .rt-resizing .rt-th,
+  .rt-resizing .rt-td {
+    transition: none !important;
+    cursor: col-resize;
+    user-select: none
+  }
+
+  .rt-thead.-filters input,
+  .rt-thead.-filters select,
+  .-pagination input,
+  .-pagination select {
+    display: block;
+    background-clip: padding-box;
+    outline: 0 !important;
+
+    &::-ms-expand {
+      background-color: transparent;
+      border: 0;
+    }
+
+    &::placeholder {
+      opacity: 1;
+    }
+
+    &:disabled,
+    &[readonly] {
+      opacity: 1;
+    }
+  }
+
+  .rt-thead.-filters select,
+  .-pagination select {
+    appearance: none;
+  }
+}
+
+.default-style {
+  @import "../../styles/_appwork/include";
+
+  .ReactTable.-striped .rt-tr.-odd {
+    background: $table-accent-bg;
+  }
+
+  .ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover {
+    background: $table-hover-bg;
+  }
+
+  .ReactTable,
+  .ReactTable .rt-thead.-headerGroups,
+  .ReactTable .rt-thead.-filters,
+  .ReactTable .rt-thead.-filters .rt-th,
+  .ReactTable .rt-thead .rt-th,
+  .ReactTable .rt-thead .rt-td,
+  .ReactTable .rt-tbody .rt-tr-group,
+  .ReactTable .rt-tbody .rt-td,
+  .ReactTable .rt-tfoot .rt-td,
+  .ReactTable .rt-thead,
+  .ReactTable .rt-thead .rt-tr,
+  .ReactTable .pagination-bottom,
+  .ReactTable .pagination-top {
+    border-color: $table-border-color;
+  }
+
+  .ReactTable .rt-th,
+  .ReactTable .rt-td {
+    padding: $table-cell-padding;
+  }
+
+  .ReactTable .rt-thead .rt-th,
+  .ReactTable .rt-thead .rt-td {
+    font-weight: $font-weight-semibold;
+  }
+
+  .ReactTable .rt-thead.-filters input,
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination input,
+  .ReactTable .-pagination select {
+    height: $input-height;
+    padding: $input-padding-y $input-padding-x;
+    font-family: $input-font-family;
+    @include font-size($input-font-size);
+    font-weight: $input-font-weight;
+    line-height: $input-line-height;
+    color: $input-color;
+    background-color: $input-bg;
+    border: $input-border-width solid $input-border-color;
+    @include border-radius($input-border-radius, 0);
+    @include transition($input-transition);
+
+    &::placeholder {
+      color: $input-placeholder-color;
+    }
+
+    &:disabled,
+    &[readonly] {
+      background-color: $input-disabled-bg;
+    }
+  }
+
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination select {
+    padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
+    background: $custom-select-background;
+    background-color: $input-bg;
+  }
+  &[dir=rtl] .ReactTable .rt-thead.-filters select,
+  &[dir=rtl] .ReactTable .-pagination select {
+      background-image: $custom-select-indicator-rtl;
+      padding-right: $custom-select-padding-x;
+      padding-left: $custom-select-padding-x+$custom-select-indicator-padding;
+      background-position: left $custom-select-padding-x center;
+  }
+
+  .ReactTable .-pagination .-btn:not([disabled]):hover,
+  .ReactTable .-pagination .-btn:not([disabled]):focus {
+    background: $gray-100;
+  }
+
+  .ReactTable .rt-expander:after {
+    border-top-color: $gray-300;
+  }
+
+  .ReactTable .rt-thead .rt-header-pivot:before {
+    border-left-color: $gray-300;
+  }
+  &[dir=rtl] .ReactTable .rt-thead .rt-header-pivot:before {
+    border-left-color: transparent;
+    border-right-color: $gray-300;
+  }
+
+  // Within card
+  //
+
+  .ReactTable.card-react-table {
+    border: 0;
+  }
+  &:not([dir=rtl]) .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-left: $card-spacer-x;
+      }
+
+      &:last-child {
+        padding-right: $card-spacer-x;
+      }
+    }
+  }
+  &:not([dir=rtl]) .card-condenced .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-left: $card-spacer-x-sm;
+      }
+
+      &:last-child {
+        padding-right: $card-spacer-x-sm;
+      }
+    }
+  }
+  &[dir=rtl] .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-right: $card-spacer-x;
+      }
+
+      &:last-child {
+        padding-left: $card-spacer-x;
+      }
+    }
+  }
+  &[dir=rtl] .card-condenced .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-right: $card-spacer-x-sm;
+      }
+
+      &:last-child {
+        padding-left: $card-spacer-x-sm;
+      }
+    }
+  }
+}
+
+.material-style {
+  @import "../../styles/_appwork/include-material";
+
+  .ReactTable.-striped .rt-tr.-odd {
+    background: $table-accent-bg;
+  }
+
+  .ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover {
+    background: $table-hover-bg;
+  }
+
+  .ReactTable,
+  .ReactTable .rt-thead.-headerGroups,
+  .ReactTable .rt-thead.-filters,
+  .ReactTable .rt-thead.-filters .rt-th,
+  .ReactTable .rt-thead .rt-th,
+  .ReactTable .rt-thead .rt-td,
+  .ReactTable .rt-tbody .rt-tr-group,
+  .ReactTable .rt-tbody .rt-td,
+  .ReactTable .rt-tfoot .rt-td,
+  .ReactTable .rt-thead,
+  .ReactTable .rt-thead .rt-tr,
+  .ReactTable .pagination-bottom,
+  .ReactTable .pagination-top {
+    border-color: $table-border-color;
+  }
+
+  .ReactTable .rt-th,
+  .ReactTable .rt-td {
+    padding: $table-cell-padding;
+  }
+
+  .ReactTable .rt-thead .rt-th,
+  .ReactTable .rt-thead .rt-td {
+    font-weight: $font-weight-semibold;
+  }
+
+  .ReactTable .rt-thead.-filters input,
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination input,
+  .ReactTable .-pagination select {
+    $material-input-disabled-color: null !default;
+    $material-input-disabled-border-color: null !default;
+
+    height: $input-height;
+    border-width: 0;
+    border-radius: 0 !important;
+    border-bottom-width: 1px;
+    border-color: $input-border-color;
+    padding: $input-padding-y 0;
+    font-family: $input-font-family;
+    @include font-size($input-font-size);
+    font-weight: $input-font-weight;
+    line-height: $input-line-height;
+    color: $input-color;
+    background-color: transparent;
+    @include transition($input-transition);
+
+    &::placeholder {
+      color: $input-placeholder-color;
+    }
+
+    &:disabled,
+    &[readonly] {
+      border-bottom: 1px dotted $material-input-disabled-border-color !important;
+      color: $material-input-disabled-color !important;
+    }
+  }
+
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination select {
+    padding: $custom-select-padding-y 0;
+    background: $custom-select-background;
+    background-color: transparent;
+  }
+  &:not([dir=rtl]) {
+    .ReactTable .rt-thead.-filters select,
+    .ReactTable .-pagination select {
+      padding-left: 0;
+      padding-right: $custom-select-padding-x;
+      background-position: right center;
+    }
+  }
+  &[dir=rtl] {
+    .ReactTable .rt-thead.-filters select,
+    .ReactTable .-pagination select {
+      background-image: $custom-select-indicator-rtl;
+      background-position: left $custom-select-padding-x center;
+      padding-right: 0;
+      padding-left: $custom-select-padding-x;
+      background-position: left center;
+    }
+  }
+  
+  .ReactTable .-pagination .-btn:not([disabled]):hover,
+  .ReactTable .-pagination .-btn:not([disabled]):focus {
+    background: $gray-100;
+  }
+
+  .ReactTable .rt-expander:after {
+    border-top-color: $gray-300;
+  }
+
+  .ReactTable .rt-thead .rt-header-pivot:before {
+    border-left-color: $gray-300;
+  }
+  &[dir=rtl] .ReactTable .rt-thead .rt-header-pivot:before {
+    border-left-color: transparent;
+    border-right-color: $gray-300;
+  }
+
+  // Within card
+  //
+
+  .ReactTable.card-react-table {
+    border: 0;
+  }
+  &:not([dir=rtl]) .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-left: $card-spacer-x;
+      }
+      &:last-child {
+        padding-right: $card-spacer-x;
+      }
+    }
+  }
+  &:not([dir=rtl]) .card-condenced .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-left: $card-spacer-x-sm;
+      }
+      &:last-child {
+        padding-right: $card-spacer-x-sm;
+      }
+    }
+  }
+  &[dir=rtl] .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-right: $card-spacer-x;
+      }
+      &:last-child {
+        padding-left: $card-spacer-x;
+      }
+    }
+  }
+  &[dir=rtl] .card-condenced .ReactTable.card-react-table {
+    .rt-tr .rt-th,
+    .rt-tr .rt-td {
+      &:first-child {
+        padding-right: $card-spacer-x-sm;
+      }
+      &:last-child {
+        padding-left: $card-spacer-x-sm;
+      }
+    }
+  }
+}

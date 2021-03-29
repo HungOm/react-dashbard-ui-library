@@ -1,0 +1,22 @@
+@mixin react-table-theme($border) {
+  .ReactTable .rt-thead.-filters input,
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination input,
+  .ReactTable .-pagination select {
+    &:focus {
+      border-color: $border !important;
+    }
+  }
+}
+
+@mixin react-table-material-theme($border) {
+  .ReactTable .rt-thead.-filters input,
+  .ReactTable .rt-thead.-filters select,
+  .ReactTable .-pagination input,
+  .ReactTable .-pagination select {
+    &:focus {
+      border-color: $border !important;
+      box-shadow: 0 -1px 0 0 $border inset;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.swiper-container .swiper-slide {
+  padding: 5rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  background: #ecebed;
+}
+
+.example-swiper-vertical {
+  max-height: 195px;
+}
+
+.example-swiper-3d-cube-effect {
+  max-width: 300px;
+}
+
+.example-swiper-3d-coverflow-effect .swiper-slide {
+  max-width: 300px;
+}
+
+.example-swiper-3d-flip-effect,
+.example-swiper-3d-flip-effect .swiper-slide {
+  max-width: 300px;
+}
+
+.example-swiper-3d-flip-effect {
+  padding: 50px;
+}

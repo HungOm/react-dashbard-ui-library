@@ -1,0 +1,25 @@
+.Container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  overflow: auto;
+
+  * {
+    border-color: #aaa !important;
+    color: #000 !important;
+  }
+}
+
+.Inner {
+  min-width: 768px !important;
+  font-size: 15px !important;
+}
+
+.Body {
+  > :not([id=root]) {
+    display: none !important;
+  }
+}
